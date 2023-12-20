@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from books.models import Book
 
@@ -11,9 +12,14 @@ def books_view(request):
 
 def one_book(request, pub_date):
     template = 'books/one_book.html'
-    books = Book.objects.get(pub_date=pub_date)
+    book = Book.objects.get(pub_date=pub_date)
+    books = Book.objects.order_by('-pub_date')
+    paginator = Paginator(books, 1)
+    page_date = request.GET.get('date')
+    page = paginator.get_page(page_date)
     context = {
-        'book': books
+        'book': book,
+        'page': page,
     }
     return render(request, template, context)
 
