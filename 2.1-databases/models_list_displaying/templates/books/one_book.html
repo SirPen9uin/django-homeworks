@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ book.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h5>
+            <a href="{% url 'books' %}">Вернуться в каталог</a>
+        </h5>
+    {% for book in books %}
+        {% if forloop.counter0|divisibleby:3 %}
+            <div class="row">
+        {% endif %}
+            <div class="book col-md-4">
+                <h2>Название: {{ book.name }}</h2>
+                <p>Автор: {{ book.author }}</p>
+                <p>Дата публикации: {{ book.pub_date }}</p>
+            </div>
+        {% if forloop.counter|divisibleby:3 or forloop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% if prev_book %}
+    <a href="{% url 'one_book' pub_date=prev_book.pub_date %}">Предыдущая</a>
+{% endif %}
+{% if next_book %}
+    <a href="{% url 'one_book' pub_date=next_book.pub_date %}">Следующая</a>
+{% endif %}
+{% endblock %}
