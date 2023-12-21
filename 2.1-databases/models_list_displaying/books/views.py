@@ -12,14 +12,17 @@ def books_view(request):
 
 def one_book(request, pub_date):
     template = 'books/one_book.html'
-    book = Book.objects.get(pub_date=pub_date)
-    books = Book.objects.order_by('-pub_date')
-    paginator = Paginator(books, 1)
-    page_date = request.GET.get('date')
-    page = paginator.get_page(page_date)
+
+    book = Book.objects.filter(pub_date=pub_date)
+
+    prev_book = Book.objects.filter(pub_date__lt=pub_date).order_by('-pub_date').first()
+    next_book = Book.objects.filter(pub_date__gt=pub_date).order_by('pub_date').first()
+
     context = {
-        'book': book,
-        'page': page,
+        'books': book,
+        'prev_book': prev_book,
+        'next_book': next_book,
     }
     return render(request, template, context)
+
 
