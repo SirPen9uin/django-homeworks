@@ -27,4 +27,3 @@ class StockViewSet(ModelViewSet):
         if products:
             queryset = queryset.filter(products=products)
         return queryset
-
