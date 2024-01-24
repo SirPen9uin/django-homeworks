@@ -11,34 +11,37 @@ Content-Type: application/json
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token f2c3f56637634dc6f8811dd6c5fbb8425983cf50
+Authorization: Token 30075ccaefc0a50004a273e4248683b340b47aca
 
 {
-  "title": "Ребенок",
+  "title": "Ноутбук",
   "description": "Срочно"
 }
 
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/2/
+PATCH {{baseUrl}}/advertisements/4/
 Content-Type: application/json
 Authorization: Token f2c3f56637634dc6f8811dd6c5fbb8425983cf50
 
 {
-  "status": "CLOSED"
+  "status": "OPEN"
 }
 
 ###
 
-DELETE {{baseUrl}}/advertisements/3/
+DELETE {{baseUrl}}/advertisements/11/
+Authorization: Token 30075ccaefc0a50004a273e4248683b340b47aca
+
+###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=1
+GET {{baseUrl}}/advertisements/?status=CLOSED
 Content-Type: application/json
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_before=2020-10-01
+GET {{baseUrl}}/advertisements/?created_at_after=2024-01-24
 Content-Type: application/json
